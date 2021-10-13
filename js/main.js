@@ -1,26 +1,33 @@
-'use strict';
+'use strict'
 
-import {AdForm} from './ad-form.js';
-import {FilterForm} from './filter-form.js';
-import {Map} from './map.js';
-import {TestHousing} from './data/test-data.js'
-
-const adForm = new AdForm();
-const filterForm = new FilterForm();
-
-adForm.clear();
-adForm.toggleActive(false);
-filterForm.toggleActive(false);
-
-const map = new Map({
-  onLoad: () => {
-    adForm.toggleActive(true);
-    filterForm.toggleActive(true);
+let arr = new Array(10).fill().map((u,index) => ({
+  author:{
+    avatar:'img/avatars/user01.png',
   },
-  onLocationChange: (location) => {
-    adForm.setLocation(location);
+  offer:{
+    title:'title',
+    address: 'address',
+    price: '200',
+    type: 'palace',
+    rooms: '5',
+    guests: '5',
+    checkin: '12:00',
+    checkout: '13:00',
+    features:['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
+    photos:['http://o0.github.io/assets/images/tokyo/hotel1.jpg','http://o0.github.io/assets/images/tokyo/hotel2.jpg','http://o0.github.io/assets/images/tokyo/hotel3.jpg.'],
   },
-});
+  location:{
+    x: 35.65000,
+    y: 139.70000,
+  },
+}
+));
+console.log(arr)
 
-const housings = new Array(10).fill(null).map(() => new TestHousing());
-map.createHousingsMarkers(housings);
+
+const getElementFromArr = (arr, number) => {
+
+    const currentElement = arr[number]
+    console.log(currentElement)
+  };
+  getElementFromArr(features, 2);
