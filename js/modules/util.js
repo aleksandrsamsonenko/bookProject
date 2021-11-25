@@ -10,12 +10,17 @@ const helpers = {
     return number;
   },
   getElementFromArr: function (arr, number) {
-  const currentElement = arr[number]
+  const currentElement = arr[number];
   return currentElement;
-  },
-}
+  }
+
+};
+
+
 
 
 export const getLocation = helpers.getLocation;
 export const randomNumber = helpers.randomNumber;
 export const getElementFromArr = helpers.getElementFromArr;
+
+
