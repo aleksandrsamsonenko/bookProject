@@ -134,4 +134,16 @@ function typeEl(event){
   elPrice.placeholder = minPrice;
 }
 
+const mapFilter = document.querySelector('.map__filters')
+const textInputElement = mapFilter.querySelector('.map__filter')
+
+function DisabledMapFilter(){
+  textInputElement.disabled =true
+}
+DisabledMapFilter();
+
+function DisabledMapFilterFalse() {
+  textInputElement.disabled = false;
+}
+DisabledMapFilterFalse();
 
