@@ -134,16 +134,94 @@ function typeEl(event){
   elPrice.placeholder = minPrice;
 }
 
-const mapFilter = document.querySelector('.map__filters')
-const textInputElement = mapFilter.querySelector('.map__filter')
+const mapFilter = document.querySelector('.map__filters');
+const textInputElement = mapFilter.querySelector('#housing-type');
 
 function DisabledMapFilter(){
   textInputElement.disabled =true
 }
 DisabledMapFilter();
 
-function DisabledMapFilterFalse() {
+const textInputPrice = mapFilter.querySelector('#housing-price');
+function DisabledMapPrice(){
+  textInputPrice.disabled =true
+}
+DisabledMapPrice();
+
+const textInputRooms = mapFilter.querySelector('#housing-rooms');
+function DisabledMapRooms(){
+  textInputRooms.disabled =true
+}
+DisabledMapRooms();
+
+const textInputQuests = mapFilter.querySelector('#housing-guests');
+function DisabledMapQuests(){
+  textInputQuests.disabled =true
+}
+DisabledMapQuests();
+/*function DisabledMapFilterFalse() {
   textInputElement.disabled = false;
 }
-DisabledMapFilterFalse();
+DisabledMapFilterFalse();*/
+
+const mapFeatures = document.querySelector('.map__features');
+const textInputFeaturesWifi = mapFeatures.querySelector('#filter-wifi');
+
+function DisabledMapWifi(){
+  textInputFeaturesWifi.disabled =true
+}
+DisabledMapWifi();
+const textInputFeaturesDishwasher = mapFeatures.querySelector('#filter-dishwasher');
+
+function DisabledMapDishwasher(){
+  textInputFeaturesDishwasher.disabled =true
+}
+DisabledMapDishwasher();
+const textInputFeaturesParking = mapFeatures.querySelector('#filter-parking');
+
+function DisabledMapParking(){
+  textInputFeaturesParking.disabled =true
+}
+DisabledMapParking();
+const textInputFeaturesWasher = mapFeatures.querySelector('#filter-washer');
+
+function DisabledMapWasher(){
+  textInputFeaturesWasher.disabled =true
+}
+DisabledMapWasher();
+const textInputFeaturesElevator = mapFeatures.querySelector('#filter-elevator');
+
+function DisabledMapElevator(){
+  textInputFeaturesElevator.disabled =true
+}
+DisabledMapElevator();
+const textInputFeaturesConditioner = mapFeatures.querySelector('#filter-conditioner');
+
+function DisabledMapConditioner(){
+  textInputFeaturesConditioner.disabled =true
+}
+DisabledMapConditioner();
+
+const mapForm = document.querySelector('.ad-form-header');
+const textInputFormAvatar = mapForm.querySelector('#avatar');
+
+function DisabledMapAvatar(){
+  textInputFormAvatar.disabled =true
+}
+DisabledMapAvatar();
+
+const mapFormElement = document.querySelector('.ad-form__element');
+const textInputFormTitle = mapFormElement.querySelector('#title');
+
+function DisabledMapTitle(){
+  textInputFormTitle.disabled =true
+}
+DisabledMapTitle();
+const mapFormElementWide = document.querySelector('.ad-form__element--wide');
+const textInputFormAddress = mapFormElementWide.querySelector('#address');
+
+function DisabledMapAddress(){
+  textInputFormAddress.disabled =true
+}
+DisabledMapAddress();
 
