@@ -21,6 +21,14 @@ const canvas = document.querySelector('#map-canvas');
 const form = document.querySelector('.ad-form__element--time');
 const formElement = document.querySelector('.ad-form');
 
+const mapFilters = document.querySelector('.map__filters');//скрытие
+const filtersSelect = mapFilters.querySelectorAll('select');
+const mapFeatures = document.querySelector('.map__features');
+const featuresInput = mapFeatures.querySelectorAll('input');
+const mapForm = document.querySelector('.ad-form');
+const mapFormInput = mapForm.querySelectorAll('fieldset');
+const mapForms = document.querySelector('.ad-form');//добавление класса
+
 let arr = new Array(10).fill().map((u,index) => ({
   author:{
     avatar:`img/avatars/user0${randomNumber(1,8)}.png`,
@@ -134,25 +142,16 @@ function typeEl(event){
   elPrice.placeholder = minPrice;
 }
 
-
-const mapFilters = document.querySelector('.map__filters');
-const filtersSelect = mapFilters.querySelectorAll('select');
-
 filtersSelect.forEach(el=>el.disabled = true);
-
-const mapFeatures = document.querySelector('.map__features');
-const featuresInput = mapFeatures.querySelectorAll('input');
 
 featuresInput.forEach(el=>el.disabled = true);
 
-const mapForm = document.querySelector('.ad-form');
-const mapFormInput = mapForm.querySelectorAll('fieldset');
-
 mapFormInput.forEach(el=>el.disabled = true);
 
-
-const mapForms = document.querySelector('.ad-form');//добавление класса
 mapForms.classList.add('ad-form--disabled');
 
-
-
+var map = L.map('#map__canvas', {
+  center: [51.505, -0.09],
+  zoom: 13
+});
+map();
