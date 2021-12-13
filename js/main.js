@@ -150,8 +150,33 @@ mapFormInput.forEach(el=>el.disabled = true);
 
 mapForms.classList.add('ad-form--disabled');
 
-var map = L.map('#map__canvas', {
-  center: [51.505, -0.09],
-  zoom: 13
-});
-map();
+
+const LAT = 35.68525;
+const LNG = 139.75146;
+const mapZoom = 13;
+
+
+const mapOptions = {
+  center: [LAT, LNG],
+  zoom: mapZoom
+}
+var L = window.L;
+
+const map = new L.map("map-canvas", mapOptions);
+const layer = new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
+
+
+export function mapInit() {
+
+  map.addLayer(layer);
+  const mainPin = L.icon({
+    iconUrl: './img/main-pin.svg',
+    iconSize: [80, 160],
+  });
+
+  const mainMarker = L.marker([LAT, LNG], {
+    icon: mainPin,
+    draggable: true,
+
+  }).addTo(map)};
+  mapInit();
