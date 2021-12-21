@@ -10,7 +10,7 @@ const helpers = {
     return number;
   },
   getElementFromArr: function (arr, number) {
-  const currentElement = arr[number];
+  const currentElement = arr.slice(number);
   return currentElement;
   }
 

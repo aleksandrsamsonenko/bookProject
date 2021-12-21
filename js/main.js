@@ -3,19 +3,7 @@
 import {getElementFromArr, randomNumber, getLocation} from './modules/util.js';
 import {features,type, photos, checkin, checkout,description} from './modules/data.js';
 
-const imageEl= document.querySelector('#card');
-const cloneElement = imageEl.cloneNode(true);
-const wrapper = cloneElement.content.querySelector('.popup');
-const image = wrapper.querySelector('.popup__avatar');
-const text = wrapper.querySelector('.popup__title');
-const dress = wrapper.querySelector('.popup__text--address');
-const cost = wrapper.querySelector('.popup__text--price');
-const valueType = wrapper.querySelector('.popup__type');
-const valueCapacity = wrapper.querySelector('.popup__text--capacity');
-const valueTime = wrapper.querySelector('.popup__text--time');
-const valueFeatures = wrapper.querySelector('.popup__features');
-const valueDescription = wrapper.querySelector('.popup__description');
-const popPhotos = wrapper.querySelector('.popup__photos');
+
 const canvas = document.querySelector('#map-canvas');
 
 const form = document.querySelector('.ad-form__element--time');
@@ -53,14 +41,6 @@ let arr = new Array(10).fill().map((u,index) => ({
 }
 ));
 
-const secondType = arr[1].offer.type;
-const firstEl = arr[0];
-const imageUrl = firstEl.author.avatar;
-const title = firstEl.offer.title;
-const address = firstEl.offer.address;
-const price = firstEl.offer.price + ' ' + '₴/ночь';
-const rooms = firstEl.offer.rooms;
-const guest = firstEl.offer.guests;
 
 const timeIn = form.querySelector('#timein');
 const timeOut = form.querySelector('#timeout');
@@ -68,47 +48,16 @@ const elType = formElement.querySelector('#type');
 const elPrice = formElement.querySelector('#price');
 
 
-let typeTex;
-switch (secondType ) {
-  case 'palace':
-    typeTex = 'Дворец';
-    break;
-  case 'flat':
-    typeTex = 'Квартира';
-    break;
-  case 'bungalow':
-    typeTex = 'Бунгало';
-    break;
-  case 'house':
-    typeTex = 'Дом';
-    break;
-}
 
-image.src = imageUrl;
-text.textContent = title;
-dress.textContent = address;
-cost.textContent = price;
-valueType.textContent = typeTex;
-valueCapacity.textContent = `${rooms}комнаты для ${guest}гостей`;
-valueTime.textContent = `Заезд после ${checkin[0]}, выезд до ${checkout[2]}`;
+
+
 
 timeIn.addEventListener('change',inTime );
 timeOut.addEventListener('change', outTime);
 elType.addEventListener('change',typeEl );
 
 
-let newFeatures = features.map(features=> {
-  return` <li class="popup__feature popup__feature--${features}"></li>`
-}).join('');
-valueFeatures.innerHTML = newFeatures;
-valueDescription.textContent = description;
 
-let newPhotos = photos.map(photos => {
-  return`<img src='${photos}' class="popup__photo"  width="45" height="40" alt="Фотография жилья"/>`
-}).join('');
-popPhotos.innerHTML = newPhotos;
-
-canvas.appendChild(wrapper);
 
 function inTime(evt){
   const timeIn  = evt.target.value;
@@ -189,9 +138,8 @@ export function mapInit() {
   arr.forEach(el=>{
     const orangeIcon = new LeafletIcon({iconUrl: './img/pin.svg'})
     var marker = L.marker([el.location.x,el.location.y],{icon:orangeIcon}).addTo(map);
-    marker.bindPopup(el.author.avatar),
-    marker.bindPopup(el.offer.title),
-    marker.bindPopup(el.offer.address).openPopup();
+
+    marker.bindPopup(renderCarts(el)).openPopup();
   })
 
   const mainMarker = L.marker([LAT, LNG], {
@@ -201,3 +149,75 @@ export function mapInit() {
   }).addTo(map)}
 
   mapInit()
+
+function renderCarts(offer) {
+  const imageEl= document.querySelector('#card');
+  const cloneElement = imageEl.cloneNode(true);
+  const wrapper = cloneElement.content.querySelector('.popup');
+  const image = wrapper.querySelector('.popup__avatar');
+  const text = wrapper.querySelector('.popup__title');
+  const dress = wrapper.querySelector('.popup__text--address');
+  const cost = wrapper.querySelector('.popup__text--price');
+  const valueType = wrapper.querySelector('.popup__type');
+  const valueCapacity = wrapper.querySelector('.popup__text--capacity');
+  const valueTime = wrapper.querySelector('.popup__text--time');
+  const valueFeatures = wrapper.querySelector('.popup__features');
+  const valueDescription = wrapper.querySelector('.popup__description');
+  const popPhotos = wrapper.querySelector('.popup__photos');
+
+
+  const firstEl = offer;
+  const secondType = firstEl.offer.type;
+  const imageUrl = firstEl.author.avatar;
+  const title = firstEl.offer.title;
+  const address = firstEl.offer.address;
+  const price = firstEl.offer.price + ' ' + '₴/ночь';
+  const rooms = firstEl.offer.rooms;
+  const guest = firstEl.offer.guests;
+  let typeTex;
+  switch (secondType ) {
+    case 'palace':
+      typeTex = 'Дворец';
+      break;
+    case 'flat':
+      typeTex = 'Квартира';
+      break;
+    case 'bungalow':
+      typeTex = 'Бунгало';
+      break;
+    case 'house':
+      typeTex = 'Дом';
+      break;
+  }
+
+  image.src = imageUrl;
+  text.textContent = title;
+  dress.textContent = address;
+  cost.textContent = price;
+  valueType.textContent = typeTex;
+  valueCapacity.textContent = `${rooms}комнаты для ${guest}гостей`;
+  valueTime.textContent = `Заезд после ${checkin[0]}, выезд до ${checkout[2]}`;
+
+
+  valueFeatures.innerHTML = renderFeatures(firstEl.offer.features);
+  valueDescription.textContent = description;
+
+  popPhotos.innerHTML = renderPhotos(firstEl.offer.photos);
+
+  return wrapper;
+
+}
+
+function renderFeatures (features) {
+  let newFeatures = features.map(features=> {
+    return` <li class="popup__feature popup__feature--${features}"></li>`
+  }).join('');
+  return newFeatures;
+}
+
+function renderPhotos (photos) {
+  let newPhotos = photos.map(photos => {
+    return`<img src='${photos}' class="popup__photo"  width="45" height="40" alt="Фотография жилья"/>`
+  }).join('');
+  return newPhotos;
+}
