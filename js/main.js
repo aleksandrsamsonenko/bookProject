@@ -221,3 +221,11 @@ function renderPhotos (photos) {
   }).join('');
   return newPhotos;
 }
+
+
+
+document.getElementById('title').setAttribute('required', '');
+
+document.getElementById('price').setAttribute('required', '');
+
+
