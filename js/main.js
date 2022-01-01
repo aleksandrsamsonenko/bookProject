@@ -204,6 +204,7 @@ function renderCarts(offer) {
 
   popPhotos.innerHTML = renderPhotos(firstEl.offer.photos);
 
+
   return wrapper;
 
 }
@@ -215,6 +216,20 @@ function renderFeatures (features) {
   return newFeatures;
 }
 
+
+
+  return wrapper;
+
+}
+
+function renderFeatures (features) {
+  let newFeatures = features.map(features=> {
+    return` <li class="popup__feature popup__feature--${features}"></li>`
+  }).join('');
+  return newFeatures;
+}
+
+
 function renderPhotos (photos) {
   let newPhotos = photos.map(photos => {
     return`<img src='${photos}' class="popup__photo"  width="45" height="40" alt="Фотография жилья"/>`
@@ -224,8 +239,28 @@ function renderPhotos (photos) {
 
 
 
+
 document.getElementById('title').setAttribute('required', '');
 
 document.getElementById('price').setAttribute('required', '');
 
+
+function checkPrice() {
+  var price_input = document.querySelector("#housing-price");
+
+  if (price_input.value < 'middle') {
+    price_input.setCustomValidity("The price cannot be less 'middle'");
+  }
+  else if (price_input.value < 'low'){
+    price_input.setCustomValidity("The price cannot be less 'low'");
+  }
+  else if (price_input.value < 'high'){
+    price_input.setCustomValidity("The price cannot be less 'high'");
+  }
+  else {
+    price_input.setCustomValidity("");
+    alert("Correct!");
+  }
+}
+checkPrice();
 
