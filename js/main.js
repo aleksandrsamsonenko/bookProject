@@ -218,18 +218,6 @@ function renderFeatures (features) {
 
 
 
-  return wrapper;
-
-}
-
-function renderFeatures (features) {
-  let newFeatures = features.map(features=> {
-    return` <li class="popup__feature popup__feature--${features}"></li>`
-  }).join('');
-  return newFeatures;
-}
-
-
 function renderPhotos (photos) {
   let newPhotos = photos.map(photos => {
     return`<img src='${photos}' class="popup__photo"  width="45" height="40" alt="Фотография жилья"/>`
@@ -245,22 +233,28 @@ document.getElementById('title').setAttribute('required', '');
 document.getElementById('price').setAttribute('required', '');
 
 
-function checkPrice() {
-  var price_input = document.querySelector("#housing-price");
+function validation(evt){
 
-  if (price_input.value < 'middle') {
-    price_input.setCustomValidity("The price cannot be less 'middle'");
+  if (name.value === 'flat' &&  evt.target.value < "5000") {
+    evt.target.setCustomValidity('The price cannot be less 5000');
   }
-  else if (price_input.value < 'low'){
-    price_input.setCustomValidity("The price cannot be less 'low'");
+  else if (name.value === 'house' && evt.target.value  < "10000"){
+    evt.target.setCustomValidity('The price cannot be less 10000 ');
   }
-  else if (price_input.value < 'high'){
-    price_input.setCustomValidity("The price cannot be less 'high'");
+  else if (name.value === 'palace' && evt.target.value  < "20000"){
+    evt.target.setCustomValidity('The price cannot be less 20000');
+  }
+  else if (name.value === 'bungalow' && evt.target.value  < "50000"){
+    evt.target.setCustomValidity('The price cannot be less 50000');
   }
   else {
-    price_input.setCustomValidity("");
-    alert("Correct!");
+    evt.target.setCustomValidity('');
+    alert('Correct!');
   }
+  price.reportValidity();
+
 }
-checkPrice();
+price.addEventListener('change',validation);
+
+
 
