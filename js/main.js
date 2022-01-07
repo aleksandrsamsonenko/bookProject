@@ -91,13 +91,13 @@ function typeEl(event){
   elPrice.placeholder = minPrice;
 }
 
-filtersSelect.forEach(el=>el.disabled = true);
+/*filtersSelect.forEach(el=>el.disabled = true);
 
 featuresInput.forEach(el=>el.disabled = true);
 
 mapFormInput.forEach(el=>el.disabled = true);
 
-mapForms.classList.add('ad-form--disabled');
+mapForms.classList.add('ad-form--disabled');*/
 
 const L = window.L
 const LAT = 35.68525;
@@ -234,27 +234,55 @@ document.getElementById('price').setAttribute('required', '');
 
 
 function validation(evt){
-
-  if (name.value === 'flat' &&  evt.target.value < "5000") {
-    evt.target.setCustomValidity('The price cannot be less 5000');
+  const typeHousing = document.querySelector('#type')
+  if (typeHousing.value === 'flat' &&  evt.target.value < "1000") {
+    evt.target.setCustomValidity('The price cannot be less 1000');
+    price.reportValidity();
   }
-  else if (name.value === 'house' && evt.target.value  < "10000"){
-    evt.target.setCustomValidity('The price cannot be less 10000 ');
+  else if (typeHousing.value === 'house' && evt.target.value  < "5000"){
+    evt.target.setCustomValidity('The price cannot be less 5000 ');
+    price.reportValidity();
   }
-  else if (name.value === 'palace' && evt.target.value  < "20000"){
-    evt.target.setCustomValidity('The price cannot be less 20000');
+  else if (typeHousing.value === 'palace' && evt.target.value  < "10000"){
+    evt.target.setCustomValidity('The price cannot be less 10000');
+    price.reportValidity();
   }
-  else if (name.value === 'bungalow' && evt.target.value  < "50000"){
-    evt.target.setCustomValidity('The price cannot be less 50000');
-  }
-  else {
-    evt.target.setCustomValidity('');
-    alert('Correct!');
-  }
-  price.reportValidity();
 
 }
 price.addEventListener('change',validation);
 
 
+function validationRoom(evt){
+ const guestsValue = document.querySelector('#capacity');
+  if (guestsValue.value === '1' &&  evt.target.value !== "1") {
+    evt.target.setCustomValidity('для 1 гостя');
+    room_number.reportValidity();
+  }
+  else if (guestsValue.value !== '2' && guestsValue.value !== '1' && evt.target.value === "2" ){
+    evt.target.setCustomValidity('для 2 гостей');
+    room_number.reportValidity();
+  }
+  else if (guestsValue.value === '0' && evt.target.value === "3") {
+    evt.target.setCustomValidity('для 3 гостей');
+    room_number.reportValidity();
+  }
+}
+room_number.addEventListener('change',validationRoom);
 
+function validationСapacity(evt){
+  const capacityValue = document.querySelector('#room_number');
+  if (capacityValue.value === '1' &&  evt.target.value !== "1") {
+    evt.target.setCustomValidity('1 комната');
+    capacity.reportValidity();
+  }
+  else if (capacityValue.value !== '2' && capacityValue.value !== '1' && evt.target.value === "2" ){
+    evt.target.setCustomValidity('2 комнаты');
+    capacity.reportValidity();
+  }
+  else if (capacityValue.value === '3' && evt.target.value === "0") {
+    evt.target.setCustomValidity('3 комнаты');
+    capacity.reportValidity();
+  }
+
+}
+capacity.addEventListener('change',validationСapacity);
