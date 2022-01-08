@@ -232,7 +232,7 @@ document.getElementById('title').setAttribute('required', '');
 
 document.getElementById('price').setAttribute('required', '');
 
-
+const price = document.querySelector('#price')
 function validation(evt){
   const typeHousing = document.querySelector('#type')
   if (typeHousing.value === 'flat' &&  evt.target.value < "1000") {
@@ -251,10 +251,11 @@ function validation(evt){
 }
 price.addEventListener('change',validation);
 
-
+const room_number = document.querySelector('#room_number')
 function validationRoom(evt){
  const guestsValue = document.querySelector('#capacity');
   if (guestsValue.value === '1' &&  evt.target.value !== "1") {
+    debugger
     evt.target.setCustomValidity('для 1 гостя');
     room_number.reportValidity();
   }
@@ -269,6 +270,7 @@ function validationRoom(evt){
 }
 room_number.addEventListener('change',validationRoom);
 
+const capacity = document.querySelector('#capacity')
 function validationСapacity(evt){
   const capacityValue = document.querySelector('#room_number');
   if (capacityValue.value === '1' &&  evt.target.value !== "1") {
