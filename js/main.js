@@ -251,40 +251,23 @@ function validation(evt){
 }
 price.addEventListener('change',validation);
 
-const room_number = document.querySelector('#room_number')
-function validationRoom(evt){
- const guestsValue = document.querySelector('#capacity');
-  if (guestsValue.value === '1' &&  evt.target.value !== "1") {
-    debugger
-    evt.target.setCustomValidity('для 1 гостя');
-    room_number.reportValidity();
+const roomNumber = document.querySelector('#room_number')
+const capacityNumber = document.querySelector('#capacity')
+
+roomNumber.addEventListener('change', validationRooms);
+
+function validationRooms(evt) {
+  const selectedValue = evt.target.value;
+  if(selectedValue == 2) {
+    capacityNumber.options[2].disabled= true;
   }
-  else if (guestsValue.value !== '2' && guestsValue.value !== '1' && evt.target.value === "2" ){
-    evt.target.setCustomValidity('для 2 гостей');
-    room_number.reportValidity();
+  else if(selectedValue == 3) {
+    capacityNumber.options[3].disabled= true;
   }
-  else if (guestsValue.value === '0' && evt.target.value === "3") {
-    evt.target.setCustomValidity('для 3 гостей');
-    room_number.reportValidity();
+  else if(selectedValue == 1) {
+    capacityNumber.options[0].disabled= true;
+    capacityNumber.options[1].disabled= true;
+    capacityNumber.options[3].disabled= true;
   }
 }
-room_number.addEventListener('change',validationRoom);
 
-const capacity = document.querySelector('#capacity')
-function validationСapacity(evt){
-  const capacityValue = document.querySelector('#room_number');
-  if (capacityValue.value === '1' &&  evt.target.value !== "1") {
-    evt.target.setCustomValidity('1 комната');
-    capacity.reportValidity();
-  }
-  else if (capacityValue.value !== '2' && capacityValue.value !== '1' && evt.target.value === "2" ){
-    evt.target.setCustomValidity('2 комнаты');
-    capacity.reportValidity();
-  }
-  else if (capacityValue.value === '3' && evt.target.value === "0") {
-    evt.target.setCustomValidity('3 комнаты');
-    capacity.reportValidity();
-  }
-
-}
-capacity.addEventListener('change',validationСapacity);
