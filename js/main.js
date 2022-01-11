@@ -269,5 +269,30 @@ function validationRooms(evt) {
     capacityNumber.options[1].disabled= true;
     capacityNumber.options[3].disabled= true;
   }
+  else if(selectedValue == 100) {
+    capacityNumber.options[0].disabled= true;
+    capacityNumber.options[1].disabled= true;
+    capacityNumber.options[3].disabled= true;
+  }
 }
 
+capacityNumber.addEventListener('change', validationCapacity);
+function validationCapacity(evt) {
+  const selectedValue = evt.target.value;
+  if(selectedValue == 2) {
+    roomNumber.options[2].disabled= true;
+    roomNumber.options[3].disabled= true;
+  }
+  else if(selectedValue == 3) {
+    roomNumber.options[0].disabled= true;
+    roomNumber.options[3].disabled= true;
+  }
+  else if(selectedValue == 1) {
+    roomNumber.options[3].disabled= true;
+  }
+  else if(selectedValue == 0) {
+    roomNumber.options[0].disabled= true;
+    roomNumber.options[1].disabled= true;
+    roomNumber.options[2].disabled= true;
+  }
+}
