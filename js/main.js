@@ -251,6 +251,10 @@ function validation(evt){
 }
 price.addEventListener('change',validation);
 
+
+roomNumber.forEach(el=>el.active = true);
+capacityNumber.forEach(el=>el.active = true);
+
 const roomNumber = document.querySelector('#room_number')
 const capacityNumber = document.querySelector('#capacity')
 
