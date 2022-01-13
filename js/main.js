@@ -252,18 +252,25 @@ function validation(evt){
 price.addEventListener('change',validation);
 
 
-roomNumber.forEach(el=>el.active = true);
-capacityNumber.forEach(el=>el.active = true);
+
 
 const roomNumber = document.querySelector('#room_number')
 const capacityNumber = document.querySelector('#capacity')
 
 roomNumber.addEventListener('change', validationRooms);
-
+function enableOptions() {
+  //capacityNumber.options.forEach(el=>el.disabled = false);
+  capacityNumber.options[0].disabled= false;
+  capacityNumber.options[1].disabled= false;
+  capacityNumber.options[2].disabled= false;
+  capacityNumber.options[3].disabled= false;
+}
 function validationRooms(evt) {
   const selectedValue = evt.target.value;
+  enableOptions();
   if(selectedValue == 2) {
-    capacityNumber.options[2].disabled= true;
+    capacityNumber.options[0].disabled= true;
+    capacityNumber.options[3].disabled= true;
   }
   else if(selectedValue == 3) {
     capacityNumber.options[3].disabled= true;
@@ -276,27 +283,9 @@ function validationRooms(evt) {
   else if(selectedValue == 100) {
     capacityNumber.options[0].disabled= true;
     capacityNumber.options[1].disabled= true;
-    capacityNumber.options[3].disabled= true;
+    capacityNumber.options[2].disabled= true;
   }
+
 }
 
-capacityNumber.addEventListener('change', validationCapacity);
-function validationCapacity(evt) {
-  const selectedValue = evt.target.value;
-  if(selectedValue == 2) {
-    roomNumber.options[2].disabled= true;
-    roomNumber.options[3].disabled= true;
-  }
-  else if(selectedValue == 3) {
-    roomNumber.options[0].disabled= true;
-    roomNumber.options[3].disabled= true;
-  }
-  else if(selectedValue == 1) {
-    roomNumber.options[3].disabled= true;
-  }
-  else if(selectedValue == 0) {
-    roomNumber.options[0].disabled= true;
-    roomNumber.options[1].disabled= true;
-    roomNumber.options[2].disabled= true;
-  }
-}
+
