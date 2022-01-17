@@ -2,6 +2,7 @@
 
 import {getElementFromArr, randomNumber, getLocation} from './modules/util.js';
 import {features,type, photos, checkin, checkout,description} from './modules/data.js';
+import {sendRequest} from './modules/fetch.js';
 
 
 const canvas = document.querySelector('#map-canvas');
@@ -113,7 +114,7 @@ const map = new L.map("map-canvas", mapOptions);
 const layer = new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
 
 
-export function mapInit() {
+export function mapInit(arr) {
 
   map.addLayer(layer);
   const mainPin = L.icon({
@@ -148,7 +149,7 @@ export function mapInit() {
 
   }).addTo(map)}
 
-  mapInit()
+
 
 function renderCarts(offer) {
   const imageEl= document.querySelector('#card');
@@ -288,4 +289,15 @@ function validationRooms(evt) {
 
 }
 
+const requestURL = 'https://24.javascript.pages.academy/keksobooking/data'
+sendRequest('GET', requestURL)
+  .then(data => {
+    mapInit(data)
+    console.log(data)})
 
+  .catch(err => console.log(err))
+
+
+/*sendRequest('POST', requestURL, body)
+  .then(data => console.log(data));
+.catch(err => console.log(err));*/
