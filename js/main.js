@@ -2,7 +2,7 @@
 
 import {getElementFromArr, randomNumber, getLocation} from './modules/util.js';
 import {features,type, photos, checkin, checkout,description} from './modules/data.js';
-import {sendRequest} from './modules/fetch.js';
+import {getMarkerInfo, sendData} from './modules/fetch.js';
 
 
 const canvas = document.querySelector('#map-canvas');
@@ -48,7 +48,7 @@ const timeOut = form.querySelector('#timeout');
 const elType = formElement.querySelector('#type');
 const elPrice = formElement.querySelector('#price');
 
-
+const submitButton = formElement.querySelector('.ad-form__submit');
 
 
 
@@ -56,6 +56,7 @@ const elPrice = formElement.querySelector('#price');
 timeIn.addEventListener('change',inTime );
 timeOut.addEventListener('change', outTime);
 elType.addEventListener('change',typeEl );
+
 
 
 
@@ -138,7 +139,7 @@ export function mapInit(arr) {
 
   arr.forEach(el=>{
     const orangeIcon = new LeafletIcon({iconUrl: './img/pin.svg'})
-    var marker = L.marker([el.location.x,el.location.y],{icon:orangeIcon}).addTo(map);
+    var marker = L.marker([el.location.lat,el.location.lng],{icon:orangeIcon}).addTo(map);
 
     marker.bindPopup(renderCarts(el)).openPopup();
   })
@@ -211,19 +212,28 @@ function renderCarts(offer) {
 }
 
 function renderFeatures (features) {
-  let newFeatures = features.map(features=> {
-    return` <li class="popup__feature popup__feature--${features}"></li>`
-  }).join('');
-  return newFeatures;
+  if(features) {
+
+    let newFeatures = features.map(features => {
+      return ` <li class="popup__feature popup__feature--${features}"></li>`
+    }).join('');
+    return newFeatures;
+  }
+  return '';
+
+
 }
 
 
 
 function renderPhotos (photos) {
-  let newPhotos = photos.map(photos => {
-    return`<img src='${photos}' class="popup__photo"  width="45" height="40" alt="Фотография жилья"/>`
-  }).join('');
-  return newPhotos;
+  if(photos){
+    let newPhotos = photos.map(photos => {
+      return`<img src='${photos}' class="popup__photo"  width="45" height="40" alt="Фотография жилья"/>`
+    }).join('');
+    return newPhotos;
+  }
+  return '';
 }
 
 
@@ -290,14 +300,29 @@ function validationRooms(evt) {
 }
 
 const requestURL = 'https://24.javascript.pages.academy/keksobooking/data'
-sendRequest('GET', requestURL)
+getMarkerInfo('GET', requestURL)
   .then(data => {
     mapInit(data)
     console.log(data)})
 
-  .catch(err => console.log(err))
+  //.catch(err => console.log(err))
 
 
-/*sendRequest('POST', requestURL, body)
-  .then(data => console.log(data));
-.catch(err => console.log(err));*/
+
+
+function onSubmit (evt) {
+  evt.preventDefault();
+  const formData = document.querySelector('#formData')
+  const form = new FormData(formData);
+  sendData(form)
+    .then(data => {
+      console.log(data);
+    })
+    .catch(function (err) {
+      console.log(err)
+    });
+}
+
+
+
+  submitButton.addEventListener('click',onSubmit );
