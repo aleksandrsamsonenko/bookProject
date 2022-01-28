@@ -3,6 +3,8 @@
 import {getElementFromArr, randomNumber, getLocation} from './modules/util.js';
 import {features,type, photos, checkin, checkout,description} from './modules/data.js';
 import {getMarkerInfo, sendData} from './modules/fetch.js';
+import {formChange} from './modules/filter.js'
+
 
 
 const canvas = document.querySelector('#map-canvas');
@@ -323,6 +325,10 @@ function onSubmit (evt) {
     });
 }
 
-
-
   submitButton.addEventListener('click',onSubmit );
+
+
+
+
+
+mapFilters.addEventListener('change', formChange);
