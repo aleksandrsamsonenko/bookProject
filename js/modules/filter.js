@@ -1,13 +1,13 @@
 import {getMarkerInfo} from "./fetch.js";
-import {mapInit} from "../main.js";
+import {mapInit, delitPopups} from "../main.js";
 
 
 
 export async function formChange() {
-  debugger
-  const requestURL = 'http://24.javascript.pages.academy/keksobooking/data'
+  const requestURL = 'https://24.javascript.pages.academy/keksobooking/data'
   getMarkerInfo('GET', requestURL)
     .then(data => {
+      delitPopups();
       console.log(data);
       const typefFilter = document.querySelector('#housing-type')
       //get value from select
@@ -17,7 +17,9 @@ export async function formChange() {
       // cut 10
       const cutFilteredDataByType = filterdDataByType.splice(0,10)
       console.log(cutFilteredDataByType)
+      mapInit(cutFilteredDataByType);
     })
+
   //get data from server
 
 }

@@ -117,14 +117,19 @@ const map = new L.map("map-canvas", mapOptions);
 const layer = new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
 
 
+map.addLayer(layer);
+const mainPin = L.icon({
+  iconUrl: './img/main-pin.svg',
+  iconSize: [80, 160],
+
+});
+const mainMarker = L.marker([LAT, LNG], {
+  icon: mainPin,
+  draggable: true,
+
+}).addTo(map)
+
 export function mapInit(arr) {
-
-  map.addLayer(layer);
-  const mainPin = L.icon({
-    iconUrl: './img/main-pin.svg',
-    iconSize: [80, 160],
-
-  });
 
   const LeafletIcon = L.Icon.extend ({
     options: {
@@ -134,23 +139,15 @@ export function mapInit(arr) {
     }
   })
 
-  const greenIcon = new LeafletIcon({iconUrl: './img/pin.svg'})
-  var marker = L.marker([35.68535,139.75156],{icon:greenIcon}).addTo(map);
-  const orangeIcon = new LeafletIcon({iconUrl: './img/pin.svg'})
-  var marker = L.marker([51.5,-0.09],{icon:orangeIcon}).addTo(map);
 
   arr.forEach(el=>{
     const orangeIcon = new LeafletIcon({iconUrl: './img/pin.svg'})
     var marker = L.marker([el.location.lat,el.location.lng],{icon:orangeIcon}).addTo(map);
 
     marker.bindPopup(renderCarts(el)).openPopup();
-  })
+  })}
 
-  const mainMarker = L.marker([LAT, LNG], {
-    icon: mainPin,
-    draggable: true,
 
-  }).addTo(map)}
 
 
 
@@ -326,9 +323,12 @@ function onSubmit (evt) {
 }
 
   submitButton.addEventListener('click',onSubmit );
-
-
-
-
-
 mapFilters.addEventListener('change', formChange);
+
+
+
+export function delitPopups() {
+  const popups = document.querySelectorAll('img[src="./img/pin.svg"]');
+  debugger
+  popups.forEach(el=>el.remove());
+}
