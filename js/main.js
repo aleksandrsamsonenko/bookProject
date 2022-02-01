@@ -3,7 +3,9 @@
 import {getElementFromArr, randomNumber, getLocation} from './modules/util.js';
 import {features,type, photos, checkin, checkout,description} from './modules/data.js';
 import {getMarkerInfo, sendData} from './modules/fetch.js';
-import {formChange} from './modules/filter.js'
+import {filter} from './modules/filter.js'
+
+
 
 
 
@@ -299,6 +301,7 @@ function validationRooms(evt) {
 }
 
 const requestURL = 'https://24.javascript.pages.academy/keksobooking/data'
+
 getMarkerInfo('GET', requestURL)
   .then(data => {
     mapInit(data)
@@ -323,12 +326,11 @@ function onSubmit (evt) {
 }
 
   submitButton.addEventListener('click',onSubmit );
-mapFilters.addEventListener('change', formChange);
+mapFilters.addEventListener('change', filter);
 
 
 
 export function delitPopups() {
   const popups = document.querySelectorAll('img[src="./img/pin.svg"]');
-  debugger
   popups.forEach(el=>el.remove());
 }

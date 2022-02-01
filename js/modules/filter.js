@@ -1,5 +1,5 @@
 import {getMarkerInfo} from "./fetch.js";
-import {mapInit, delitPopups} from "../main.js";
+import {mapInit, delitPopups,} from "../main.js";
 
 
 
@@ -7,7 +7,7 @@ export async function formChange() {
   const requestURL = 'https://24.javascript.pages.academy/keksobooking/data'
   getMarkerInfo('GET', requestURL)
     .then(data => {
-      delitPopups();
+
       console.log(data);
       const typefFilter = document.querySelector('#housing-type')
       //get value from select
@@ -24,12 +24,9 @@ export async function formChange() {
 
 }
 
-const mapFilters = document.querySelector(".map__filters")
 
-mapFilters.addEventListener("change", filter)
 
-export function filter(event, data){
-  debugger
+export function filter(){
   let  filteredOffers =[]
   let bluePin = document.querySelectorAll('[title*="My another Location"]')
   bluePin.forEach(el => el.remove())
@@ -37,10 +34,14 @@ export function filter(event, data){
 
   const houseType = document.getElementById("housing-type")
   const housePrice = document.getElementById("housing-price")
+  const houseRooms = document.getElementById("housing-rooms")
+  const houseGuests = document.getElementById("housing-guests")
 
 
   let houseTypeValue = houseType.value
   let housePriceValue = housePrice.value
+  let houseRoomsValue = houseRooms.value
+  let houseGuestsValue = houseGuests.value
 
 
   function housingTypeHandler(elem){
@@ -78,6 +79,38 @@ export function filter(event, data){
     }
   }
 
+  function housingRoomHandler(elem){
+
+    if (houseRoomsValue === "1"){
+      return  elem.offer.rooms === "1"
+    }
+    if (houseRoomsValue === "2"){
+      return elem.offer.rooms === "2"
+    }
+    if (houseRoomsValue === "3"){
+      return elem.offer.rooms === "3"
+    }
+    if (houseRoomsValue === "any"){
+      return true
+    }
+  }
+
+  function housingGuestsHandler(elem){
+
+    if (houseGuestsValue === "1"){
+      return  elem.offer.guests === "1"
+    }
+    if (houseGuestsValue === "2"){
+      return elem.offer.guests === "2"
+    }
+    if (houseGuestsValue === "0"){
+      return elem.offer.guests === "0"
+    }
+    if (houseGuestsValue === "any"){
+      return true
+    }
+  }
+
 
 
   let featuresFilter = function (elem) {
@@ -97,8 +130,16 @@ export function filter(event, data){
 
 
   let commonFilter = function (elem) {
-    return housingTypeHandler(elem) && housingPriceHandler(elem) && featuresFilter(elem)
+    return housingTypeHandler(elem) && housingPriceHandler(elem) && featuresFilter(elem)&& housingGuestsHandler(elem)&& housingRoomHandler(elem)
   }
-  filteredOffers = data.filter(commonFilter)
-  getMarkerInfo (filteredOffers)
+  const requestURL = 'https://24.javascript.pages.academy/keksobooking/data'
+  getMarkerInfo('GET', requestURL)
+    .then(data => {
+      delitPopups();
+      filteredOffers = data.filter(commonFilter)
+      mapInit(filteredOffers)
+      console.log(filteredOffers)
+      }
+    )
+
 }
